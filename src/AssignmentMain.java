@@ -104,5 +104,6 @@ public class AssignmentMain {
         System.out.println("Thank you for using our grading system. Have a nice day!");
          
         ioScanner.close();
+        //test
     }
 }

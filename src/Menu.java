@@ -1,5 +1,6 @@
 import java.util.Locale;
-public class AssignmentMain {
+
+public class Menu {
     static IOScanner ioScanner = new IOScanner();
 
     public static void pressEnter() {
@@ -44,8 +45,8 @@ public class AssignmentMain {
             sum += studentScores[i];
         }
         // double mean = (double)sum / (double)studentScores.length;
-        double mean = (double) sum / studentScores.length;
-        System.out.printf(Locale.ENGLISH, "The mean of the numbers is %.2f\n", mean); // Locale.ENGLISH
+        double mean = (double)sum / studentScores.length;
+        System.out.printf(Locale.ENGLISH, "The mean of the numbers is %.2f\n", mean);
         pressEnter();
     }
 
@@ -74,10 +75,11 @@ public class AssignmentMain {
         System.out.printf("The two highest scores provided are %d, and %d\n", highest, secondHighest);
         pressEnter();
     }
+
     public static void readHashtags(){
         String caption = ioScanner.nextLine();
         String[] words = caption.split(" ");
-        String[] hashtags = ne
+       // String[] hashtags = ne
             for (int i  = 0; i < words.length; i++){
                 boolean isHashtag = words[i].contains("#");
                 if (isHashtag == true){
@@ -85,7 +87,25 @@ public class AssignmentMain {
                 } 
             }
     }
-        
+    /*System.out.print("Please write an sentence with hashtags: ");
+
+    String sentence = ioScanner.nextLine();
+    String[] ord = sentence.split(" ");
+
+    boolean Foundhashtag = false;
+
+    for(
+    String word:ord)
+    {
+        if (word.startsWith("#")) {
+            Foundhashtag = true;
+            System.out.print(word + " ");
+        }
+    }if(!Foundhashtag)
+    {
+        System.out.println("No hashtags were found!");
+    }
+    }}*/
 
     public static void highestScore(int[] studentScores) {
         // int[] Score = new int[3];
@@ -110,7 +130,8 @@ public class AssignmentMain {
             }
         }
 
-        System.out.println("The highest score is " + highest + " and belongs to the " + place + suffixs[place-1] + " student");
+        System.out.println(
+                "The highest score is " + highest + " and belongs to the " + place + suffixs[place - 1] + " student");
         pressEnter();
     }
 

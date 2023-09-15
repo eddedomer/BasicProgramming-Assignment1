@@ -3,38 +3,16 @@ import java.util.Locale;
 public class Menu {
     static IOScanner ioScanner = new IOScanner();
 
-    public static void pressEnter() {
-        System.out.println("\n\npress \"Enter\" to continue: ");
-        ioScanner.nextLine();
-    }
-
     public static void printGrades(int[] studentScores) {
-        String[] grades = new String[7];
-        for (int i = 0; i < grades.length; i++) {
-
-            if (studentScores[i] >= 0 && studentScores[i] < 50) {
-                grades[i] = "U";
-            } else if (studentScores[i] >= 50 && studentScores[i] < 70) {
-                grades[i] = "3";
-            } else if (studentScores[i] >= 70 && studentScores[i] < 85) {
-                grades[i] = "4";
-            } else if (studentScores[i] >= 85 && studentScores[i] <= 100) {
-                grades[i] = "5";
+        System.out.println("Your entered scores are:");
+        for (int i = 0; i < studentScores.length; i++) {
+            if (i < 6) {
+                System.out.printf("%d, ", studentScores[i]);
             } else {
-                grades[i] = "Invalid";
-            }
-
-        }
-        System.out.println("Grades for all scores: ");
-        for (int i = 0; i < grades.length; i++) {
-            // System.out.print(grades[i] + ", ");
-            if (i < grades.length - 1) {
-                System.out.print(grades[i] + ", ");
-            } else {
-                System.out.print(grades[i]);
+                System.out.printf("%d \n", studentScores[i]);
             }
         }
-        pressEnter();
+
     }
 
     public static void calculatingMean(int[] studentScores) {
@@ -44,68 +22,65 @@ public class Menu {
         for (int i = 0; i < studentScores.length; i++) {
             sum += studentScores[i];
         }
-        // double mean = (double)sum / (double)studentScores.length;
-        double mean = (double)sum / studentScores.length;
+        double mean = (double) sum / studentScores.length;
         System.out.printf(Locale.ENGLISH, "The mean of the numbers is %.2f\n", mean);
-        pressEnter();
     }
 
     public static void highestLowestScore(int[] studentScores) {
         int highest = studentScores[0];
-        int secondHighest = -1;
+        int secondHighest = 0;
         int lowest = studentScores[0];
-        int secondLowest = 101;
+        int secondLowest = 100;
 
         for (int i = 0; i < studentScores.length; i++) {
             if (studentScores[i] > highest) {
                 secondHighest = highest;
                 highest = studentScores[i];
-            } else if ((studentScores[i] < highest) && (studentScores[i] > secondHighest)) {
+            } else if ((studentScores[i] <= highest) && (studentScores[i] > secondHighest) && i != 0) {
                 secondHighest = studentScores[i];
-            } else if (studentScores[i] < lowest) {
+            }
+            if (studentScores[i] < lowest) {
                 secondLowest = lowest;
                 lowest = studentScores[i];
 
-            } else if ((studentScores[i] > lowest) && (studentScores[i] < secondLowest)) {
+            } else if ((studentScores[i] >= lowest) && (studentScores[i] < secondLowest) && i != 0) {
                 secondLowest = studentScores[i];
             }
         }
 
         System.out.printf("\nThe two lowest scores provided are %d, and %d\n", lowest, secondLowest);
         System.out.printf("The two highest scores provided are %d, and %d\n", highest, secondHighest);
-        pressEnter();
+
     }
 
-    public static void readHashtags(){
-        String caption = ioScanner.nextLine();
-        String[] words = caption.split(" ");
-       // String[] hashtags = ne
-            for (int i  = 0; i < words.length; i++){
-                boolean isHashtag = words[i].contains("#");
-                if (isHashtag == true){
-                    
-                } 
+    public static void readHashtags() {
+        /*
+         * String caption = ioScanner.nextLine();
+         * String[] words = caption.split(" ");
+         * // String[] hashtags = ne
+         * for (int i = 0; i < words.length; i++){
+         * int hashtags = words[i].indexOf("#");
+         * System.out.println(hashtags);
+         * }
+         */
+        String sentence = ioScanner.nextLine("Please write an sentence with hashtags: ");
+        String[] words = sentence.split(" ");
+
+        boolean foundHashtag = false;
+
+        String allHashtags = "";
+        for (String word : words) {
+            if (word.startsWith("#")) {
+                foundHashtag = true;
+                allHashtags += word + " ";
             }
-    }
-    /*System.out.print("Please write an sentence with hashtags: ");
-
-    String sentence = ioScanner.nextLine();
-    String[] ord = sentence.split(" ");
-
-    boolean Foundhashtag = false;
-
-    for(
-    String word:ord)
-    {
-        if (word.startsWith("#")) {
-            Foundhashtag = true;
-            System.out.print(word + " ");
+            allHashtags.trim();
         }
-    }if(!Foundhashtag)
-    {
-        System.out.println("No hashtags were found!");
+        System.out.println("Hashtags found: " + allHashtags);
+        if (!foundHashtag) {
+            System.out.println("No hashtags were typed");
+        }
     }
-    }}*/
 
     public static void highestScore(int[] studentScores) {
         // int[] Score = new int[3];
@@ -129,10 +104,8 @@ public class Menu {
                 place = i + 1;
             }
         }
-
         System.out.println(
                 "The highest score is " + highest + " and belongs to the " + place + suffixs[place - 1] + " student");
-        pressEnter();
     }
 
     public static int[] newStudentScores() {
@@ -140,16 +113,16 @@ public class Menu {
         int[] studentScores = new int[7];
         for (int i = 0; i < studentScores.length; i++) {
             do {
-                System.out.printf("please enter the score for the %d%s student: ", i + 1, suffixs[i]);
-                studentScores[i] = ioScanner.nextIntCLR_BUFF();
+                System.out.printf("Enter the score for the %d%s student ", i + 1, suffixs[i]);
+                studentScores[i] = ioScanner.nextIntCLR_BUFF("");
                 if ((studentScores[i] < 0) || (studentScores[i] > 100)) {
-                    System.out.println("not a correct score. the score must be between 0 and 100.");
+                    System.out.println("Error - Input out of bound. Score can only be between 0  and 100.");
                 } else {
                 }
             } while ((studentScores[i] < 0) || (studentScores[i] > 100));
         }
-        System.out.println("thank you for you input!");
-        System.out.println("your entered scores are: ");
+        System.out.println("Thank you for your input.");
+        System.out.println("Your entered scores are:");
         for (int i = 0; i < studentScores.length; i++) {
             if (i < 6) {
                 System.out.printf("%d, ", studentScores[i]);
@@ -157,7 +130,7 @@ public class Menu {
                 System.out.printf("%d \n", studentScores[i]);
             }
         }
-        pressEnter();
+
         return studentScores;
 
     }
@@ -165,18 +138,18 @@ public class Menu {
     public static void main(String[] args) {
         int menuOpt;
         int[] studentScores = new int[7];
+        studentScores = newStudentScores();
         do {
-            System.out.println("\n\nWelcome to the menu. chose one of the options bellow: ");
+            System.out.println("Welcome to the menu. Choose one of the options below: ");
             System.out.printf("%5d. %s", 1, "Register new scores for students.\n");
             System.out.printf("%5d. %s", 2, "Print all registered grades.\n");
             System.out.printf("%5d. %s", 3, "Calculate the mean of the entered scores.\n");
             System.out.printf("%5d. %s", 4, "Find the two highest and two lowest scores.\n");
             System.out.printf("%5d. %s", 5, "Find the highest score and its position.\n");
             System.out.printf("%5d. %s", 6, "Collect hashtags from a post.\n");
-            System.out.printf("%5d. %s", 7, "To exit.\n");
+            System.out.printf("%5d. %s", 7, "To exit.\n\n");
             do {
-                System.out.print("Type your option: ");
-                menuOpt = ioScanner.nextIntCLR_BUFF();
+                menuOpt = ioScanner.nextIntCLR_BUFF("Type your option: ");
                 switch (menuOpt) {
                     case 1:
                         studentScores = newStudentScores();
@@ -194,16 +167,17 @@ public class Menu {
                         highestScore(studentScores);
                         break;
                     case 6:
+                        readHashtags();
                         break;
                     case 7:
+                        System.out.println("Thank you for using our grading system. Have a nice day!");
                         break;
                     default:
-                        System.out.println("ERROR. INPUT NOT VALID. Please enter a number between 1-7!");
+                        System.out.println("Error - Invalid value. Please type between 1 and 7");
                 }
             } while ((menuOpt < 1) || (menuOpt > 7));
 
         } while (menuOpt != 7);
-        System.out.println("Thank you for using our grading system. Have a nice day!");
 
         ioScanner.close();
     }

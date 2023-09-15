@@ -10,22 +10,27 @@ public class IOScanner {
         this.input = new Scanner(System.in);
     }
     //This creates a function we can call from the main class ex. ioScanner.nextInt() and read the input;
-    public int nextInt(){
+    public int nextInt(String message){
+        System.out.print(message);
         return input.nextInt();
     }
     //this works exactly like the .nextInt(); but it directly clears the keyboard buffer so you dont have to put input.nextLine(); after reading an int. 
-    public int nextIntCLR_BUFF(){
+    public int nextIntCLR_BUFF(String message){
+        System.out.print(message);
         int temp = input.nextInt();
         input.nextLine();
         return temp;
     }
-    public String nextLine(){
+    public String nextLine(String message){
+        System.out.print(message);
         return input.nextLine();
     }
-    public String next(){
+    public String next(String message){
+        System.out.print(message);
         return input.next();
     }
-    public double nextDouble(){
+    public double nextDouble(String message){
+        System.out.print(message);
         return input.nextDouble();
     }
     public void close(){
